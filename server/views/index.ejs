@@ -1,0 +1,41 @@
+<!-- views/index.ejs -->
+<html>
+<head>
+  <title>Accessibility Resources</title>
+</head>
+<body>
+  <h1>Accessibility Resources</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Resource Name</th>
+        <th>Resource Type</th>
+        <th>Contact Number</th>
+        <th>Email</th>
+        <th>Website URL</th>
+        <th>Location</th>
+        <th>Description</th>
+        <th>Accessibility Features</th>
+        <th>Language Support</th>
+        <th>Availability Hours</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% resources.forEach(function(resource) { %>
+        <tr>
+          <td><%= resource.resource_name %></td>
+          <td><%= resource.resource_type %></td>
+          <td><%= resource.contact_number %></td>
+          <td><%= resource.email %></td>
+          <td><%= resource.website_url %></td>
+          <td><%= resource.location %></td>
+          <td><%= resource.description %></td>
+          <td><%= resource.accessibility_features %></td>
+          <td><%= resource.language_support %></td>
+          <td><%= resource.availability_hours %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>
