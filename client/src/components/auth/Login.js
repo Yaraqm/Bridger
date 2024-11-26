@@ -1,5 +1,8 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// Import React to create components and the useEffect hook to manage side effects in functional components
+import React, { useEffect } from 'react'; 
+
+// Import useNavigate from React Router to programmatically navigate between routes
+import { useNavigate } from 'react-router-dom'; 
 
 const Login = () => {
     const navigate = useNavigate();
