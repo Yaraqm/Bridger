@@ -85,7 +85,7 @@ const FeedbackForm = ({ venueId, userId, onFeedbackSubmit }) => {
         borderRadius: '8px',
         maxWidth: '400px',
         margin: '20px auto',
-        fontFamily: 'Arial, sans-serif',
+        fontFamily: 'Raleway, sans-serif',
     };
 
     const inputStyle = (isError) => ({
