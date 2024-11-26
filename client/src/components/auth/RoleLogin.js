@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -6,48 +6,52 @@ const RoleLogin = ({ isAdmin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [adminKey, setAdminKey] = useState("");
+  const [error, setError] = useState("");
+  const [showAdminKeyInput, setShowAdminKeyInput] = useState(isAdmin);
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Check if the URL contains bypassKey=true
+  // Check if the URL contains bypassKey=true to skip admin key
   const searchParams = new URLSearchParams(location.search);
   const bypassKey = searchParams.get("bypassKey") === "true";
 
-  // If bypassKey is true, skip the admin key step
-  const [showAdminKeyInput, setShowAdminKeyInput] = useState(
-    isAdmin && !bypassKey
-  );
-  const [error, setError] = useState("");
-
-  // Predefined admin keys
+  // Predefined valid admin keys
   const validAdminKeys = ["ADMIN123", "SUPERADMIN456", "MASTER789"];
 
+  // Handle admin key submission
   const handleAdminKeySubmit = (e) => {
     e.preventDefault();
     if (validAdminKeys.includes(adminKey)) {
-      setShowAdminKeyInput(false); // Proceed to the login form
+      setShowAdminKeyInput(false); // Proceed to login form
+      setError(""); // Clear any existing error
     } else {
       setError("Invalid admin key. Please try again.");
     }
   };
 
+  // Handle user login
   const handleLogin = async (e) => {
     e.preventDefault();
+
     try {
+      // Payload with conditional adminKey inclusion
       const payload = { email, password, ...(isAdmin && { adminKey }) };
+
+      // Send login request to backend
       const response = await axios.post(
         "http://localhost:5000/api/auth/login",
         payload
       );
 
-      const token = response.data.token; // Assuming the token comes in response
+      // Save token and userId to localStorage
+      const { token, userId } = response.data;
       localStorage.setItem("authToken", token);
+      localStorage.setItem("userId", userId);
+
+      // Clear errors and navigate to the appropriate dashboard
       setError("");
       alert("Login successful!");
-      // After successful login
-      localStorage.setItem("authToken", response.data.token);
-      localStorage.setItem("userId", response.data.userId); // Save userId as well
-      navigate("/dashboard");
+      navigate(isAdmin ? "/admin-dashboard" : "/dashboard");
     } catch (err) {
       setError("Invalid credentials or admin key.");
     }
@@ -57,11 +61,11 @@ const RoleLogin = ({ isAdmin }) => {
     <div style={styles.container}>
       <div style={styles.left}>
         <div style={styles.formBox}>
-          {showAdminKeyInput ? (
+          {showAdminKeyInput && !bypassKey ? (
             <>
               <h2 style={styles.header}>Admin Key Required</h2>
               <p style={styles.subtitle}>
-                Please enter your admin key to continue.
+                Please enter your admin key to proceed.
               </p>
               <form onSubmit={handleAdminKeySubmit} style={styles.form}>
                 <div style={styles.inputGroup}>
@@ -121,7 +125,9 @@ const RoleLogin = ({ isAdmin }) => {
                 <span
                   style={styles.signupLink}
                   onClick={() =>
-                    navigate("/signup", { state: { userType: "admin" } })
+                    navigate("/signup", {
+                      state: { userType: isAdmin ? "admin" : "member" },
+                    })
                   }
                 >
                   Sign up
@@ -131,10 +137,8 @@ const RoleLogin = ({ isAdmin }) => {
           )}
         </div>
       </div>
-      <div style={styles.right}>
-        <div style={styles.imageContainer}>
-          {/* Add an illustration or image */}
-        </div>
+      <div className="purple-panel" style={styles.right}>
+        <div style={styles.imageContainer}></div>
       </div>
     </div>
   );
