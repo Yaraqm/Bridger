@@ -4,6 +4,7 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/ap
 import FeedbackForm from './FeedbackForm'; 
 import StarAndShareForm from './StarLocationForm';
 import VisitForm from './VisitForm';
+import Navbar from "./Navbar";
 
 const VenuePage = () => {
     const [user, setUser] = useState(null);
@@ -96,6 +97,8 @@ const VenuePage = () => {
      const mapStyles = {
         width: '100%',
         height: '400px',
+        marginLeft: '20px',
+        marginRight: '40px',
     };
 
 
@@ -207,6 +210,10 @@ const VenuePage = () => {
 
     return (
         <div style={styles.container}>
+            <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                <Navbar />
+            </div>
+
             <h1 style={styles.heading}>Venue List</h1>
 
             <div style={styles.searchContainer}>
@@ -344,9 +351,13 @@ const VenuePage = () => {
 };
 
 const styles = {
+    
     container: {
-        padding: '20px',
+        padding: '0px',
         backgroundColor: '#f8f8f8',
+        width: '100%',   // Full width of the screen
+        maxWidth: '100%',
+        marginright: '5px',
     },
     addVisitButton: {
         backgroundColor: '#28a745',
@@ -360,10 +371,12 @@ const styles = {
     heading: {
         fontSize: '2em',
         marginBottom: '20px',
+        marginLeft: '20px',
     },
     venueList: {
         display: 'flex',
         flexWrap: 'wrap',  // To allow wrapping of venue cards
+        marginLeft: '20px',
         gap: '20px',
     },
     venueCard: {
@@ -412,6 +425,7 @@ const styles = {
     },
     searchContainer: {
         marginBottom: '20px',
+        marginLeft: '20px',
     },
     searchInput: {
         padding: '10px',
@@ -420,9 +434,11 @@ const styles = {
         maxWidth: '400px',
         borderRadius: '5px',
         border: '1px solid #ddd',
+        marginLeft: '20px',
     },
     filterContainer: {
         marginBottom: '20px',
+        marginLeft: '20px',
         display: 'flex',
         alignItems: 'center',
     },
