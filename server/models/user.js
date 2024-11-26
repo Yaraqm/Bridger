@@ -66,7 +66,7 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: true,
   },
-  region: {
+  postal: {
     type: DataTypes.STRING,
     allowNull: true,
   },
