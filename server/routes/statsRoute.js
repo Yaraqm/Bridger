@@ -21,7 +21,7 @@ router.get('/stats', async (req, res) => {
 
     // Fetch all users with relevant data
     const users = await User.findAll({
-      attributes: ['name', 'email', 'created_at', 'total_points', 'friend_user_ids', 'high_contrast', 'screen_reader', 'keyboard_navigation'],
+      attributes: ['name', 'email', 'created_at', 'total_points', 'friend_user_ids', 'high_contrast', 'screen_reader', 'keyboard_navigation', 'accessibility_preferences', 'city', 'postal'],
     });
 
     // Prepare data for the graph (number of users created over time)
