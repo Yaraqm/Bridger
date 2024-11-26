@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FriendFinder from "../pages/FriendFinder";
+import FriendFinder from "./FriendFinder";
 import axios from "axios";
 
 const NavLink = ({ href, children }) => {
@@ -103,7 +103,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div style={styles.dashboard}>
+    <div className="moving-gradient" style={styles.dashboard}>
       {/* Header */}
       <header style={styles.header}>
         <button style={styles.hamburgerButton} onClick={toggleSidebar}>
@@ -112,25 +112,22 @@ const Dashboard = () => {
         <nav style={styles.nav}>
           <ul style={styles.navList}>
             <li>
+              <NavLink href="/dashboard">Home</NavLink>
+            </li>
+            <li>
               <NavLink href="/Rewards">Rewards</NavLink>
             </li>
             <li>
               <NavLink href="/volunteer">Volunteer</NavLink>
             </li>
             <li>
-              <NavLink href="/resources">Resources</NavLink>
+              <NavLink href="/pages/Resources">Resources</NavLink>
             </li>
             <li>
-              <NavLink href="/venueForm">Venue Form</NavLink>
+              <NavLink href="/venueForm">Submit a Venue</NavLink>
             </li>
             <li>
-              <NavLink href="/profile">Profile</NavLink>
-            </li>
-            <li>
-              <NavLink href="/map">View Venues on Map</NavLink>
-            </li>
-            <li>
-              <NavLink href="/stats">Stats</NavLink>
+              <NavLink href="/map">Find a Venue</NavLink>
             </li>
           </ul>
         </nav>
@@ -232,33 +229,60 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <main style={styles.mainContent}>
-        <section style={styles.welcomeSection}>
-          <h1>Welcome to Bridger</h1>
+        {/* Hero Section */}
+        <section style={styles.heroSection}>
+          <img src="/bridgerLogo1.png" alt="Logo" style={styles.logoImage} />
+          <h1 style={styles.heroTitle}>
+            Welcome to Bridger!
+          </h1>
+          <h2 style={styles.heroButton}>At Bridger, we "bridge" the gap towards accessibility.</h2>
         </section>
-        <section style={styles.banner}>
-          <h2 style={styles.bannerTitle}>
-            "Bridging the Gap: Accessibility for All"
-          </h2>
-          <img
-            src="/dashboardImage.jpg"
-            alt="Bridger Banner"
-            style={styles.bannerImageStyle}
-          />
-        </section>
-        <section style={styles.aboutUs}>
+
+        {/* About Us Section */}
+        <section style={styles.aboutSection}>
           <h2 style={styles.sectionTitle}>About Us</h2>
-          <p style={styles.aboutText}>
-            Bridger is a digital platform designed to empower individuals with
-            disabilities by providing accessible information and fostering a
-            supportive community.
+          <p style={styles.sectionText}>
+          We are a group of 6 software developers on a mission to enlist more accessibility-related applications in the landscape of Canadian software.
+          At Bridger, we want more than just a map with places to visit; we want to foster connections between the minorities of our community. 
+          We believe that Bridger can guide individuals with disabilities to be their most outgoing and friendliest selves.
           </p>
         </section>
-        <section style={styles.mission}>
+
+        {/* Our Mission Section */}
+        <section style={styles.missionSection}>
           <h2 style={styles.sectionTitle}>Our Mission</h2>
-          <p style={styles.sectionText}>
-            To create an inclusive world by connecting people through shared
-            experiences and accessible information.
-          </p>
+          <div style={styles.imageGrid}>
+            <div style={styles.gridItem}>
+              <img
+                src="/main-content-image1.jpg"
+                alt="Mission 1"
+                style={styles.gridImage}
+              />
+              <p style={styles.imageCaption}>
+              We strive to locate accessible venues in the Durham region for Durham citizens with disabilities.
+              </p>
+            </div>
+            <div style={styles.gridItem}>
+              <img
+                src="/main-content-image2.jpg"
+                alt="Mission 2"
+                style={styles.gridImage}
+              />
+              <p style={styles.imageCaption}>
+              Taking into account the settings and configuration of our site, our mission is to provide a navigable and easy to use guide on how to get to the safest spaces in Durham for all individuals.
+              </p>
+            </div>
+            <div style={styles.gridItem}>
+              <img
+                src="/main-content-image3.jpg"
+                alt="Mission 3"
+                style={styles.gridImage}
+              />
+              <p style={styles.imageCaption}>
+              We urge all individuals, reguardless of their abilities, to build connections and grow with various incentives on our site, motivating them to go outside and find themselves in the greater community.
+              </p>
+            </div>
+          </div>
         </section>
       </main>
 
@@ -370,8 +394,32 @@ const styles = {
   mainContent: {
     margin: "0 auto",
     maxWidth: "800px",
-    padding: "20px",
-    marginTop: "70px",
+    padding: "10px",
+    marginTop: "10px",
+  },
+  heroSection: {
+    textAlign: "center",
+    padding: "40px",
+    backgroundColor: "#f5f5f5",
+    marginBottom: "20px",
+  },
+  logoImage: {
+    maxWidth: "400px",
+    marginBottom: "10px",
+    marginTop: "10px",
+  },
+  heroTitle: {
+    fontSize: "24px !important",
+    margin: "10px 0",
+  },
+  heroButton: {
+    padding: "10px 20px",
+    backgroundColor: "#00004A",
+    fontSize: "20px !important",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
   },
   welcomeSection: {
     textAlign: "center",
@@ -421,6 +469,23 @@ const styles = {
     fontSize: "16px",
     lineHeight: "1.8",
     color: "#7f8c8d",
+  },
+  aboutSection: {
+    padding: "20px",
+    backgroundColor: "#fff",
+    marginBottom: "20px",
+  },
+  imageGrid: {
+    display: "flex",
+    gap: "20px",
+  },
+  gridItem: {
+    flex: 1,
+    textAlign: "center",
+  },
+  gridImage: {
+    width: "100%",
+    borderRadius: "10px",
   },
   footer: {
     backgroundColor: "#333",
